@@ -22,6 +22,7 @@
     "skipLibCheck": true,
     "useDefineForClassFields": false,
     "paths": {
+      "@pages/": ["src/app/pages/index.ts"],
       "@features/*": ["src/app/features*"],
       "@shared/*": ["src/app/shared*"],
       "@core/*": ["src/app/core*"]
