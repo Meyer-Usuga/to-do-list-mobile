@@ -52,8 +52,9 @@ export class TaskFormModalComponent {
 
   readonly #modalController = inject(ModalController);
   readonly #taskService = inject(TaskService);
-  readonly formBuilder = new FormBuilder();
-  readonly form = this.formBuilder.group({
+  readonly #formBuilder = inject(FormBuilder);
+
+  readonly form = this.#formBuilder.group({
     id: [crypto.randomUUID() as string],
     title: ['', [Validators.required, Validators.minLength(5)]],
     description: ['', [Validators.maxLength(50)]],

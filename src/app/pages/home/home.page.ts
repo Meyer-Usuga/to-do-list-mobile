@@ -1,5 +1,5 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { TaskListComponent, CategoryFilterComponent, TaskFormModalComponent } from '@features/';
+import { TaskListComponent, CategoryFilterComponent, TaskFormModalComponent, CategoryFormModalComponent } from '@features/';
 import { addIcons } from 'ionicons';
 import {
   IonHeader,
@@ -128,6 +128,26 @@ export class HomePage {
     const modal = await this.#modalController.create({
       component: TaskFormModalComponent,
       componentProps: {},
+    });
+
+    await modal.present();
+  }
+
+  async openCreateCategoryForm(){
+    const modal = await this.#modalController.create({
+      component: CategoryFormModalComponent,
+      componentProps: {},
+    });
+
+    await modal.present();
+  }
+
+  async openEditCategoryForm(category: CategoryFilterViewModel){
+    const modal = await this.#modalController.create({
+      component: CategoryFormModalComponent,
+      componentProps: {
+        category,
+      },
     });
 
     await modal.present();

@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      {{ isEdit() ? "Actualizar categoría" : "Nueva categoría" }}
+    </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()"> Cerrar </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="form" (ngSubmit)="saveForm()" class="category-form">
+    <ion-input
+      fill="solid"
+      formControlName="name"
+      label="Nombre"
+      labelPlacement="stacked"
+      placeholder="Escribe el título de la tarea"
+    >
+    </ion-input>
+
+    <ion-accordion-group>
+      <ion-accordion value="colors">
+        <ion-item slot="header">
+          <ion-label>Color</ion-label>
+
+          @if (form.controls.color.value) {
+            <div
+              slot="end"
+              class="selected-color"
+              [style.background]="form.controls.color.value"
+            ></div>
+          }
+        </ion-item>
+
+        <div class="color-picker ion-padding" slot="content">
+          @for (color of categoryColors; track color.value) {
+            <button
+              type="button"
+              class="color-option"
+              [class.selected]="form.controls.color.value === color.value"
+              [style.background]="color.value"
+              [attr.aria-label]="color.name"
+              (click)="form.controls.color.setValue(color.value)"
+            ></button>
+          }
+        </div>
+      </ion-accordion>
+    </ion-accordion-group>
+
+    <ion-button expand="block" (click)="saveForm()"> Guardar </ion-button>
+  </form>
+</ion-content>
