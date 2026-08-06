@@ -23,14 +23,14 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { TaskService } from '../../services';
-import { Task } from '../../models';
-import { TaskItemViewModel } from '../../view-models';
+import { TaskService } from '../../../shared/services';
+import { Task } from '../../../shared/models';
+import { TaskItemViewModel } from '../../../shared/view-models';
 
 @Component({
-  selector: 'app-create-task-form',
-  templateUrl: './create-task-form.component.html',
-  styleUrls: ['./create-task-form.component.scss'],
+  selector: 'app-task-form-modal',
+  templateUrl: './task-form-modal.component.html',
+  styleUrls: ['./task-form-modal.component.scss'],
   imports: [
     IonHeader,
     IonToolbar,
@@ -46,7 +46,7 @@ import { TaskItemViewModel } from '../../view-models';
   ],
   standalone: true,
 })
-export class CreateTaskFormComponent {
+export class TaskFormModalComponent {
   readonly task = input<TaskItemViewModel | null>(null);
   readonly isEdit = computed(() => this.task() !== null);
 

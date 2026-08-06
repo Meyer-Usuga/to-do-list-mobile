@@ -1,5 +1,5 @@
-import { Component, computed, effect, inject, signal } from '@angular/core';
-import { TaskListComponent, CategoryFilterComponent } from '@features/';
+import { Component, computed, inject, signal } from '@angular/core';
+import { TaskListComponent, CategoryFilterComponent, TaskFormModalComponent } from '@features/';
 import { addIcons } from 'ionicons';
 import {
   IonHeader,
@@ -18,7 +18,6 @@ import {
   CategoryFilterViewModel,
   TaskItemViewModel,
   TaskService,
-  CreateTaskFormComponent
 } from '@shared/';
 import { add, pricetags } from 'ionicons/icons';
 
@@ -39,8 +38,8 @@ import { add, pricetags } from 'ionicons/icons';
     IonFab,
     IonFabButton,
     TaskListComponent,
-    CreateTaskFormComponent,
     CategoryFilterComponent,
+    TaskFormModalComponent,
   ],
 })
 export class HomePage {
@@ -116,7 +115,7 @@ export class HomePage {
 
   async openEditTaskForm(task: TaskItemViewModel){
     const modal = await this.#modalController.create({
-      component: CreateTaskFormComponent,
+      component: TaskFormModalComponent,
       componentProps: {
         task,
       },
@@ -127,7 +126,7 @@ export class HomePage {
 
   async openCreateTaskForm(){
     const modal = await this.#modalController.create({
-      component: CreateTaskFormComponent,
+      component: TaskFormModalComponent,
       componentProps: {},
     });
 
