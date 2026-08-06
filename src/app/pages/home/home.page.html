@@ -10,6 +10,10 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <app-category-filter [categories]="categories()" />
-  <app-task-list [tasks]="tasks()" />
+  <app-category-filter
+    [categories]="categories()"
+    [selectedCategoryId]="selectedCategoryId()"
+    (selected)="onSelectedCategory($event)"
+  />
+  <app-task-list [tasks]="tasksSelected()" />
 </ion-content>

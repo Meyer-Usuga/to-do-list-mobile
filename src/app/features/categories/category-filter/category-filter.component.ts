@@ -12,9 +12,9 @@ import { CategoryFilterViewModel } from '@shared//view-models';
 export class CategoryFilterComponent {
   readonly categories = input.required<CategoryFilterViewModel[]>();
   readonly selectedCategoryId = input<string | null>("all");
-  readonly categorySelected = output<string>();
+  readonly selected = output<string>();
 
   onCategoryChange(event: SegmentCustomEvent) {
-    this.categorySelected.emit(event.detail.value as string);
+    this.selected.emit(event.detail.value as string);
   }
 }
