@@ -36,8 +36,11 @@
     placeholder="Selecciona una categoría"
   >
     <ion-select-option value="">Sin categoría</ion-select-option>
-    <ion-select-option value="1">Personal</ion-select-option>
-    <ion-select-option value="2">Trabajo</ion-select-option>
+    @for(category of categories(); track category.id) {
+      <ion-select-option [value]="category.id">
+        {{ category.name }}  
+      </ion-select-option>
+    }
   </ion-select>
 
   <ion-button expand="block" (click)="saveForm()"> Guardar </ion-button>

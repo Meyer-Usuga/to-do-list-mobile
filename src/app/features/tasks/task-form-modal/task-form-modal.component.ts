@@ -1,10 +1,4 @@
-import {
-  Component,
-  computed,
-  effect,
-  inject,
-  input,
-} from '@angular/core';
+import { Component, computed, effect, inject, input } from '@angular/core';
 import {
   IonHeader,
   IonToolbar,
@@ -23,9 +17,12 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { TaskService } from '../../../shared/services';
-import { Task } from '../../../shared/models';
-import { TaskItemViewModel } from '../../../shared/view-models';
+import {
+  Task,
+  CategoryService,
+  TaskItemViewModel,
+  TaskService,
+} from '@shared/';
 
 @Component({
   selector: 'app-task-form-modal',
@@ -52,6 +49,7 @@ export class TaskFormModalComponent {
 
   readonly #modalController = inject(ModalController);
   readonly #taskService = inject(TaskService);
+  readonly #categoryService = inject(CategoryService);
   readonly #formBuilder = inject(FormBuilder);
 
   readonly form = this.#formBuilder.group({
@@ -63,6 +61,8 @@ export class TaskFormModalComponent {
     createdAt: [new Date()],
     updatedAt: [new Date()],
   });
+
+  readonly categories = this.#categoryService.categories;
 
   constructor() {
     effect(() => {

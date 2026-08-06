@@ -16,6 +16,7 @@ import {
 } from '@ionic/angular/standalone';
 import {
   CategoryFilterViewModel,
+  CategoryService,
   TaskItemViewModel,
   TaskService,
 } from '@shared/';
@@ -44,8 +45,10 @@ import { add, pricetags } from 'ionicons/icons';
 })
 export class HomePage {
   readonly #taskService = inject(TaskService); 
+  readonly #categoryService = inject(CategoryService); 
   readonly #modalController = inject(ModalController); 
   readonly tasks = this.#taskService.tasks; 
+  readonly categories = this.#categoryService.categories;
 
   constructor() {
     addIcons({
@@ -54,37 +57,6 @@ export class HomePage {
     });
   }
 
-  readonly categoriesItemsMock: CategoryFilterViewModel[] = [
-    {
-      id: '1',
-      name: 'Trabajo',
-      color: 'red',
-    },
-    {
-      id: '2',
-      name: 'Personal',
-      color: 'blue',
-    },
-    {
-      id: '3',
-      name: 'Compras',
-      color: 'green',
-    },
-    {
-      id: '4',
-      name: 'Estudios',
-      color: 'orange',
-    },
-    {
-      id: '5',
-      name: 'Otros',
-      color: 'yellow',
-    },
-  ];
-
-  readonly categories = signal<CategoryFilterViewModel[]>(
-    this.categoriesItemsMock,
-  );
   readonly selectedCategoryId = signal('all');
 
   readonly tasksSelected = computed(() => {
