@@ -1,0 +1,21 @@
+<ion-item [class.completed]="task().completed === true">
+  <ion-checkbox
+    [checked]="task().completed === true"
+    (ionChange)="toggle.emit(task())"
+    slot="start"
+  ></ion-checkbox>
+
+  <ion-label>
+    <h2>{{ task().title }}</h2>
+    @if (task().description) {
+      <ion-note>{{ task().description }}</ion-note>
+    }
+  </ion-label>
+
+  <ion-button fill="clear" (click)="edit.emit(task())" slot="end">
+    <ion-icon name="create"></ion-icon>
+  </ion-button>
+  <ion-button fill="clear" (click)="delete.emit(task())" slot="end">
+    <ion-icon name="trash"></ion-icon>
+  </ion-button>
+</ion-item>

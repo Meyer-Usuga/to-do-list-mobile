@@ -23,7 +23,7 @@
     "useDefineForClassFields": false,
     "paths": {
       "@pages/": ["src/app/pages/index.ts"],
-      "@features/*": ["src/app/features*"],
+      "@features/": ["src/app/features/index.ts"],
       "@shared/*": ["src/app/shared*"],
       "@core/*": ["src/app/core*"]
     }
