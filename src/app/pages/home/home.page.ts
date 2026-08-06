@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, effect, inject, signal } from '@angular/core';
 import { TaskListComponent, CategoryFilterComponent } from '@features/';
 import { addIcons } from 'ionicons';
 import {
@@ -10,13 +10,17 @@ import {
   IonIcon,
   IonButtons,
   IonNote,
+  IonFab,
+  IonFabButton,
+  ModalController,
 } from '@ionic/angular/standalone';
 import {
   CategoryFilterViewModel,
   TaskItemViewModel,
   TaskService,
+  CreateTaskFormComponent
 } from '@shared/';
-import { pricetags } from 'ionicons/icons';
+import { add, pricetags } from 'ionicons/icons';
 
 @Component({
   selector: 'app-home',
@@ -32,71 +36,24 @@ import { pricetags } from 'ionicons/icons';
     IonButton,
     IonIcon,
     IonNote,
+    IonFab,
+    IonFabButton,
     TaskListComponent,
+    CreateTaskFormComponent,
     CategoryFilterComponent,
   ],
 })
 export class HomePage {
-
   readonly #taskService = inject(TaskService); 
+  readonly #modalController = inject(ModalController); 
+  readonly tasks = this.#taskService.tasks; 
 
   constructor() {
     addIcons({
       'pricetags-outline': pricetags,
+      'add-outline': add,
     });
   }
-
-  async ionViewWillEnter(){
-    this.#taskService.getTasks();
-  }
-
-  readonly taskItemsMock: TaskItemViewModel[] = [
-    {
-      id: '1',
-      title: 'Task 1',
-      description: 'Description 1',
-      completed: false,
-      categoryId: '1',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-    {
-      id: '2',
-      title: 'Task 2',
-      description: 'Description 2',
-      completed: true,
-      categoryId: '2',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-    {
-      id: '3',
-      title: 'Task 3',
-      description: 'Description 3',
-      completed: false,
-      categoryId: '1',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-    {
-      id: '4',
-      title: 'Task 4',
-      description: 'Description 4',
-      completed: false,
-      categoryId: '3',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-    {
-      id: '5',
-      title: 'Task 5',
-      description: 'Description 5',
-      completed: false,
-      categoryId: '2',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-  ];
 
   readonly categoriesItemsMock: CategoryFilterViewModel[] = [
     {
@@ -126,9 +83,6 @@ export class HomePage {
     },
   ];
 
-  readonly tasks = signal<TaskItemViewModel[]>(
-    this.#taskService.tasks()
-  );
   readonly categories = signal<CategoryFilterViewModel[]>(
     this.categoriesItemsMock,
   );
@@ -146,4 +100,13 @@ export class HomePage {
       (task) => task.categoryId === this.selectedCategoryId(),
     );
   });
+
+  async openCreateTaskForm(){
+    const modal = await this.#modalController.create({
+      component: CreateTaskFormComponent,
+      componentProps: {},
+    });
+
+    await modal.present();
+  }
 }

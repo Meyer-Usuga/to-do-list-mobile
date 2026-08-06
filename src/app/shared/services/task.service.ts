@@ -10,8 +10,13 @@ export class TaskService {
   readonly #storageService = inject(StorageService);
   readonly tasks = signal<Task[]>([]);
 
+  constructor(){
+    this.getTasks(); 
+  }
+
   async getTasks() {
     const tasks = await this.#storageService.get(this.#storageKey);
+    console.log(tasks)
     if (tasks) {
       this.tasks.set(tasks);
     }

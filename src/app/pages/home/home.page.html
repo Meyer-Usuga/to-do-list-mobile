@@ -21,4 +21,10 @@
   } @else {
     <ion-note>No tienes ninguna tarea creada.</ion-note>
   }
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button size="small" (click)="openCreateTaskForm()">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
