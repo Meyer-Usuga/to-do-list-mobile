@@ -15,11 +15,16 @@
     [selectedCategoryId]="selectedCategoryId()"
     (selected)="onSelectedCategory($event)"
   />
-  
+
   @if(tasks().length > 0) {
-    <app-task-list [tasks]="tasks()" />
+  <app-task-list
+    [tasks]="tasksSelected()"
+    (edit)="onEditTask($event)"
+    (delete)="onDeleteTask($event)"
+    (toggle)="onToggleTask($event)"
+  />
   } @else {
-    <ion-note>No tienes ninguna tarea creada.</ion-note>
+  <ion-note>No tienes ninguna tarea creada.</ion-note>
   }
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">

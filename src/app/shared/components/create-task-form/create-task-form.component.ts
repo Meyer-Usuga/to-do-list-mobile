@@ -1,13 +1,17 @@
-import { Component, inject, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  effect,
+  inject,
+  input,
+} from '@angular/core';
 import {
   IonHeader,
-  IonModal,
   IonToolbar,
   IonTitle,
   IonButtons,
   IonButton,
   IonContent,
-  IonItem,
   IonInput,
   ModalController,
   IonSelect,
@@ -21,6 +25,7 @@ import {
 } from '@angular/forms';
 import { TaskService } from '../../services';
 import { Task } from '../../models';
+import { TaskItemViewModel } from '../../view-models';
 
 @Component({
   selector: 'app-create-task-form',
@@ -42,18 +47,38 @@ import { Task } from '../../models';
   standalone: true,
 })
 export class CreateTaskFormComponent {
+  readonly task = input<TaskItemViewModel | null>(null);
+  readonly isEdit = computed(() => this.task() !== null);
+
   readonly #modalController = inject(ModalController);
   readonly #taskService = inject(TaskService);
   readonly formBuilder = new FormBuilder();
   readonly form = this.formBuilder.group({
-    id: [crypto.randomUUID()],
-    title: ['', Validators.required, Validators.minLength(5)],
-    description: ['', Validators.maxLength(50)],
+    id: [crypto.randomUUID() as string],
+    title: ['', [Validators.required, Validators.minLength(5)]],
+    description: ['', [Validators.maxLength(50)]],
     completed: [false],
     categoryId: [''],
     createdAt: [new Date()],
     updatedAt: [new Date()],
   });
+
+  constructor() {
+    effect(() => {
+      const task = this.task();
+      if (task) {
+        this.form.patchValue({
+          id: task.id as string,
+          title: task.title,
+          description: task.description,
+          completed: task.completed,
+          categoryId: task.categoryId,
+          createdAt: task.createdAt,
+          updatedAt: task.updatedAt,
+        });
+      }
+    });
+  }
 
   async saveForm() {
     if (this.form.invalid) {
@@ -61,7 +86,11 @@ export class CreateTaskFormComponent {
       return;
     }
 
-    await this.#taskService.addTask(this.form.getRawValue() as Task);
+    if (this.isEdit()) {
+      await this.#taskService.editTask(this.form.getRawValue() as Task);
+    } else {
+      await this.#taskService.addTask(this.form.getRawValue() as Task);
+    }
 
     this.#modalController.dismiss();
   }

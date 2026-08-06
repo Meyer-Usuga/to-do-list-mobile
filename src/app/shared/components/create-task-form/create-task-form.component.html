@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title> Nueva tarea </ion-title>
+    <ion-title> {{ isEdit() ? 'Actualizar tarea' : 'Nueva tarea'}} </ion-title>
 
     <ion-buttons slot="end">
       <ion-button (click)="closeModal()"> Cerrar </ion-button>

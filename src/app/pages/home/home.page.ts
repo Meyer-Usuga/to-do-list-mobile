@@ -88,18 +88,42 @@ export class HomePage {
   );
   readonly selectedCategoryId = signal('all');
 
-  onSelectedCategory(categoryId: string) {
-    this.selectedCategoryId.set(categoryId);
-  }
-
   readonly tasksSelected = computed(() => {
     if (this.selectedCategoryId() === 'all') {
       return this.tasks();
     }
+
     return this.tasks().filter(
       (task) => task.categoryId === this.selectedCategoryId(),
     );
   });
+
+  onSelectedCategory(categoryId: string) {
+    this.selectedCategoryId.set(categoryId);
+  }
+
+  onEditTask(task: TaskItemViewModel){
+     this.openEditTaskForm(task);
+  }
+
+  onDeleteTask(task: TaskItemViewModel){
+    this.#taskService.deleteTask(task.id);
+  }
+
+  onToggleTask(task: TaskItemViewModel){
+    this.#taskService.toggleTask(task.id);
+  }
+
+  async openEditTaskForm(task: TaskItemViewModel){
+    const modal = await this.#modalController.create({
+      component: CreateTaskFormComponent,
+      componentProps: {
+        task,
+      },
+    });
+
+    await modal.present(); 
+  }
 
   async openCreateTaskForm(){
     const modal = await this.#modalController.create({

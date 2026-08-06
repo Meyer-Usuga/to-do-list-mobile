@@ -19,7 +19,7 @@ bootstrapApplication(AppComponent, {
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     importProvidersFrom(IonicStorageModule.forRoot(storageConfig)),
-    provideIonicAngular(),
+    provideIonicAngular({ useSetInputAPI: true }),
     provideRouter(routes, withPreloading(PreloadAllModules)),
   ],
 });

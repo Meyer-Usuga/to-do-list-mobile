@@ -37,7 +37,7 @@ export class TaskService {
     await this.#storageService.set(this.#storageKey, updatedTasks);
   }
 
-  async completeTask(taskId: string) {
+  async toggleTask(taskId: string) {
     const updatedTasks = this.tasks().map(
       task => task.id === taskId ? {
         ...task,
