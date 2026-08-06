@@ -1,6 +1,6 @@
 import { Component, input, output } from '@angular/core';
 import { IonSegment, IonSegmentButton, IonLabel, SegmentCustomEvent } from '@ionic/angular/standalone';
-import { CategoryFilterViewModel } from '@shared//view-models';
+import { CategoryFilterViewModel } from '@shared/';
 
 @Component({
   selector: 'app-category-filter',

@@ -1,6 +1,6 @@
 import { Component, input, output } from '@angular/core';
 import { IonList } from '@ionic/angular/standalone';
-import { TaskItemViewModel } from '@shared//view-models';
+import { TaskItemViewModel } from '@shared/';
 import { TaskItemComponent } from '../task-item';
 
 @Component({

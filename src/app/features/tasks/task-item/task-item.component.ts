@@ -7,7 +7,7 @@ import {
   IonLabel,
   IonNote,
 } from '@ionic/angular/standalone';
-import { TaskItemViewModel } from '@shared//view-models';
+import { TaskItemViewModel } from '@shared/';
 import { addIcons } from 'ionicons';
 import { createOutline, trashOutline } from 'ionicons/icons';
 
