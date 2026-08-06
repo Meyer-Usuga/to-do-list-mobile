@@ -19,6 +19,6 @@ import { TaskItemViewModel } from '@shared//view-models';
 export class TaskItemComponent {
   readonly task = input.required<TaskItemViewModel>();
   readonly toggle = output<TaskItemViewModel>();
-  readonly redit = output<TaskItemViewModel>();
+  readonly edit = output<TaskItemViewModel>();
   readonly delete = output<TaskItemViewModel>();
 }

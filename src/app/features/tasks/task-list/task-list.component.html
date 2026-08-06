@@ -1,0 +1,6 @@
+<ion-list>
+  @for(task of tasks(); track task.id){
+  <app-task-item [task]="task" (toggle)="toggle.emit($event)" (edit)="edit.emit($event)"
+    (delete)="delete.emit($event)"/>
+  }
+</ion-list>
