@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { TaskListComponent, CategoryFilterComponent } from '@features/';
 import { addIcons } from 'ionicons';
 import {
@@ -9,11 +9,13 @@ import {
   IonButton,
   IonIcon,
   IonButtons,
+  IonNote,
 } from '@ionic/angular/standalone';
 import {
   CategoryFilterViewModel,
   TaskItemViewModel,
-} from '@shared//view-models';
+  TaskService,
+} from '@shared/';
 import { pricetags } from 'ionicons/icons';
 
 @Component({
@@ -29,15 +31,23 @@ import { pricetags } from 'ionicons/icons';
     IonButtons,
     IonButton,
     IonIcon,
+    IonNote,
     TaskListComponent,
     CategoryFilterComponent,
   ],
 })
 export class HomePage {
+
+  readonly #taskService = inject(TaskService); 
+
   constructor() {
     addIcons({
       'pricetags-outline': pricetags,
     });
+  }
+
+  async ionViewWillEnter(){
+    this.#taskService.getTasks();
   }
 
   readonly taskItemsMock: TaskItemViewModel[] = [
@@ -117,7 +127,7 @@ export class HomePage {
   ];
 
   readonly tasks = signal<TaskItemViewModel[]>(
-    this.taskItemsMock
+    this.#taskService.tasks()
   );
   readonly categories = signal<CategoryFilterViewModel[]>(
     this.categoriesItemsMock,
