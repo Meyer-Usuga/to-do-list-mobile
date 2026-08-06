@@ -1,22 +1,42 @@
 import { Component, signal } from '@angular/core';
 import { TaskListComponent } from '@features/';
-
+import { addIcons } from 'ionicons';
 import {
   IonHeader,
   IonToolbar,
   IonTitle,
   IonContent,
+  IonButton,
+  IonIcon,
+  IonButtons,
 } from '@ionic/angular/standalone';
 import { TaskItemViewModel } from '@shared//view-models';
+import { pricetags } from 'ionicons/icons';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, TaskListComponent],
+  imports: [
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    IonButtons,
+    IonButton,
+    IonIcon,
+    TaskListComponent,
+  ],
 })
 export class HomePage {
+
+  constructor(){
+    addIcons({
+      "pricetags-outline": pricetags
+    })
+  }
+
   readonly taskItemsMock: TaskItemViewModel[] = [
     {
       id: '1',

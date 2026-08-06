@@ -8,6 +8,8 @@ import {
   IonNote,
 } from '@ionic/angular/standalone';
 import { TaskItemViewModel } from '@shared//view-models';
+import { addIcons } from 'ionicons';
+import { createOutline, trashOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-task-item',
@@ -17,6 +19,14 @@ import { TaskItemViewModel } from '@shared//view-models';
   standalone: true,
 })
 export class TaskItemComponent {
+
+  constructor(){
+    addIcons({
+      "trash-outline": trashOutline,
+      "create-outline": createOutline,
+    })
+  }
+
   readonly task = input.required<TaskItemViewModel>();
   readonly toggle = output<TaskItemViewModel>();
   readonly edit = output<TaskItemViewModel>();
