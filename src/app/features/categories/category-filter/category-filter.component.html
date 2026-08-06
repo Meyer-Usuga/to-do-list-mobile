@@ -1,0 +1,14 @@
+<ion-segment
+  [value]="selectedCategoryId()"
+  (ionChange)="onCategoryChange($event)"
+>
+  <ion-segment-button value="all">
+    <ion-label>All</ion-label>
+  </ion-segment-button>
+
+  @for(category of categories(); track category.id){
+    <ion-segment-button [value]="category.id">
+      <ion-label>{{ category.name }}</ion-label>
+    </ion-segment-button>
+  }
+</ion-segment>

@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { TaskListComponent } from '@features/';
+import { TaskListComponent, CategoryFilterComponent } from '@features/';
 import { addIcons } from 'ionicons';
 import {
   IonHeader,
@@ -10,7 +10,7 @@ import {
   IonIcon,
   IonButtons,
 } from '@ionic/angular/standalone';
-import { TaskItemViewModel } from '@shared//view-models';
+import { CategoryFilterViewModel, TaskItemViewModel } from '@shared//view-models';
 import { pricetags } from 'ionicons/icons';
 
 @Component({
@@ -27,6 +27,7 @@ import { pricetags } from 'ionicons/icons';
     IonButton,
     IonIcon,
     TaskListComponent,
+    CategoryFilterComponent,
   ],
 })
 export class HomePage {
@@ -67,5 +68,24 @@ export class HomePage {
     },
   ];
 
+  readonly categoriesItemsMock: CategoryFilterViewModel[] = [
+    {
+      id: '1',
+      name: 'Category 1',
+      color: 'red',
+    },
+    {
+      id: '2',
+      name: 'Category 2',
+      color: 'blue',
+    },
+    {
+      id: '3',
+      name: 'Category 3',
+      color: 'green',
+    },
+  ];
+
   readonly tasks = signal<TaskItemViewModel[]>(this.taskItemsMock);
+  readonly categories = signal<CategoryFilterViewModel[]>(this.categoriesItemsMock);
 }

@@ -10,5 +10,6 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <app-category-filter [categories]="categories()" />
   <app-task-list [tasks]="tasks()" />
 </ion-content>
