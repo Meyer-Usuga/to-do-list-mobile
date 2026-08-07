@@ -1,11 +1,41 @@
-.completed {
-  text-decoration: line-through;
-  opacity: 0.5;
+.task-card {
+  margin: 12px;
+  border-radius: 16px;
 }
 
-.task-item-indicator {
-  width: 6px;
-  height: 24px;
-  border-radius: 3px;
-  margin-inline-end: 8px;
-} 
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.task-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.task-category {
+  width: 8px;
+  min-width: 8px;
+  height: 48px;
+  border-radius: 8px;
+}
+
+.task-actions {
+  display: flex;
+}
+
+.description {
+  margin-top: 12px;
+  color: var(--ion-color-medium);
+}
+
+.completed {
+  opacity: .65;
+}
+
+.completed h2 {
+  text-decoration: line-through;
+}

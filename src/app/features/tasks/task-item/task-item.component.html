@@ -1,27 +1,32 @@
-<ion-item [class.completed]="task().completed === true">
-  <div
-    slot="start"
-    class="task-item-indicator"
-    [style.background]="task().categoryColor ? task().categoryColor : 'gray'"
-  ></div>
+<ion-card class="task-card" [class.completed]="task().completed">
+  <ion-card-content>
+    <div class="task-header">
+      <div class="task-info">
+        <div
+          class="task-category"
+          [style.background]="task().categoryColor || 'var(--ion-color-medium)'"
+        ></div>
 
-  <ion-checkbox
-    [checked]="task().completed === true"
-    (ionChange)="toggle.emit(task())"
-    slot="start"
-  ></ion-checkbox>
+        <ion-checkbox
+          [checked]="task().completed"
+          (ionChange)="toggle.emit(task())"
+        >
+        </ion-checkbox>
 
-  <ion-label>
-    <h2>{{ task().title }}</h2>
-    @if (task().description) {
-      <ion-note>{{ task().description }}</ion-note>
-    }
-  </ion-label>
+        <div>
+          <h2>{{ task().title }}</h2>
+        </div>
+      </div>
 
-  <ion-button fill="clear" (click)="edit.emit(task())" slot="end">
-    <ion-icon name="create-outline"></ion-icon>
-  </ion-button>
-  <ion-button fill="clear" (click)="delete.emit(task())" slot="end">
-    <ion-icon name="trash-outline"></ion-icon>
-  </ion-button>
-</ion-item>
+      <div class="task-actions">
+        <ion-button fill="clear" (click)="edit.emit(task())">
+          <ion-icon name="create-outline"></ion-icon>
+        </ion-button>
+
+        <ion-button fill="clear" color="danger" (click)="delete.emit(task())">
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-button>
+      </div>
+    </div>
+  </ion-card-content>
+</ion-card>

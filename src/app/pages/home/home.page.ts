@@ -35,7 +35,6 @@ import { add, pricetags } from 'ionicons/icons';
     IonButtons,
     IonButton,
     IonIcon,
-    IonNote,
     IonFab,
     IonFabButton,
     TaskListComponent,
