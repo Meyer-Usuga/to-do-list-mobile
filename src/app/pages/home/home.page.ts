@@ -1,5 +1,10 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { TaskListComponent, CategoryFilterComponent, TaskFormModalComponent, CategoryFormModalComponent } from '@features/';
+import {
+  TaskListComponent,
+  CategoryFilterComponent,
+  TaskFormModalComponent,
+  CategoryManagmentModalComponent,
+} from '@features/';
 import { addIcons } from 'ionicons';
 import {
   IonHeader,
@@ -14,12 +19,7 @@ import {
   IonFabButton,
   ModalController,
 } from '@ionic/angular/standalone';
-import {
-  CategoryFilterViewModel,
-  CategoryService,
-  TaskItemViewModel,
-  TaskService,
-} from '@shared/';
+import { CategoryService, TaskItemViewModel, TaskService } from '@shared/';
 import { add, pricetags } from 'ionicons/icons';
 
 @Component({
@@ -44,10 +44,10 @@ import { add, pricetags } from 'ionicons/icons';
   ],
 })
 export class HomePage {
-  readonly #taskService = inject(TaskService); 
-  readonly #categoryService = inject(CategoryService); 
-  readonly #modalController = inject(ModalController); 
-  readonly tasks = this.#taskService.tasks; 
+  readonly #taskService = inject(TaskService);
+  readonly #categoryService = inject(CategoryService);
+  readonly #modalController = inject(ModalController);
+  readonly tasks = this.#taskService.tasks;
   readonly categories = this.#categoryService.categories;
 
   constructor() {
@@ -60,11 +60,22 @@ export class HomePage {
   readonly selectedCategoryId = signal('all');
 
   readonly tasksSelected = computed(() => {
+    const tasks = this.tasks();
+    const categories = this.categories();
+
+    const mappedTasks = tasks.map((task) => {
+      const category = categories.find((cat) => cat.id === task.categoryId);
+      return {
+        ...task,
+        categoryColor: category?.color,
+      };
+    });
+
     if (this.selectedCategoryId() === 'all') {
-      return this.tasks();
+      return mappedTasks;
     }
 
-    return this.tasks().filter(
+    return mappedTasks.filter(
       (task) => task.categoryId === this.selectedCategoryId(),
     );
   });
@@ -73,19 +84,19 @@ export class HomePage {
     this.selectedCategoryId.set(categoryId);
   }
 
-  onEditTask(task: TaskItemViewModel){
-     this.openEditTaskForm(task);
+  onEditTask(task: TaskItemViewModel) {
+    this.openEditTaskForm(task);
   }
 
-  onDeleteTask(task: TaskItemViewModel){
+  onDeleteTask(task: TaskItemViewModel) {
     this.#taskService.deleteTask(task.id);
   }
 
-  onToggleTask(task: TaskItemViewModel){
+  onToggleTask(task: TaskItemViewModel) {
     this.#taskService.toggleTask(task.id);
   }
 
-  async openEditTaskForm(task: TaskItemViewModel){
+  async openEditTaskForm(task: TaskItemViewModel) {
     const modal = await this.#modalController.create({
       component: TaskFormModalComponent,
       componentProps: {
@@ -93,10 +104,10 @@ export class HomePage {
       },
     });
 
-    await modal.present(); 
+    await modal.present();
   }
 
-  async openCreateTaskForm(){
+  async openCreateTaskForm() {
     const modal = await this.#modalController.create({
       component: TaskFormModalComponent,
       componentProps: {},
@@ -105,21 +116,10 @@ export class HomePage {
     await modal.present();
   }
 
-  async openCreateCategoryForm(){
+  async openCategoryManagmentModal() {
     const modal = await this.#modalController.create({
-      component: CategoryFormModalComponent,
+      component: CategoryManagmentModalComponent,
       componentProps: {},
-    });
-
-    await modal.present();
-  }
-
-  async openEditCategoryForm(category: CategoryFilterViewModel){
-    const modal = await this.#modalController.create({
-      component: CategoryFormModalComponent,
-      componentProps: {
-        category,
-      },
     });
 
     await modal.present();

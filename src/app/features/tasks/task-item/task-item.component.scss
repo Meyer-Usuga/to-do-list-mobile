@@ -2,3 +2,10 @@
   text-decoration: line-through;
   opacity: 0.5;
 }
+
+.task-item-indicator {
+  width: 6px; 
+  height: 24px; 
+  border-radius: 3px; 
+  margin-inline-end: 8px;
+}

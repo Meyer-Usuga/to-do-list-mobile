@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Categorías</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()"> Cerrar </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list>
+    @for (category of categories(); track category.id) {
+      <ion-item>
+        <div class="category-color" [style.background]="category.color"></div>
+
+        <ion-label>
+          {{ category.name }}
+        </ion-label>
+
+        <ion-button
+          fill="clear"
+          slot="end"
+          (click)="openEditCategory(category)"
+        >
+          <ion-icon name="create-outline"></ion-icon>
+        </ion-button>
+
+        <ion-button
+          fill="clear"
+          color="danger"
+          slot="end"
+          (click)="deleteCategory(category.id)"
+        >
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-button>
+      </ion-item>
+    }
+  </ion-list>
+
+  <ion-button
+    expand="block"
+    class="ion-margin-top"
+    (click)="openCreateCategory()"
+  >
+    <ion-icon slot="start" name="add-outline"> </ion-icon>
+
+    Nueva categoría
+  </ion-button>
+</ion-content>

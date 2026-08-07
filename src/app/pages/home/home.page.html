@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-title> To-do list </ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="openCreateCategoryForm()">
+      <ion-button (click)="openCategoryManagmentModal()">
         <ion-icon name="pricetags-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -16,7 +16,7 @@
     (selected)="onSelectedCategory($event)"
   />
 
-  @if(tasks().length > 0) {
+  @if(tasksSelected().length > 0) {
   <app-task-list
     [tasks]="tasksSelected()"
     (edit)="onEditTask($event)"
@@ -24,7 +24,9 @@
     (toggle)="onToggleTask($event)"
   />
   } @else {
-  <ion-note>No tienes ninguna tarea creada.</ion-note>
+    <div class="no-tasks">
+      No tienes ninguna tarea.
+    </div>
   }
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">

@@ -36,9 +36,9 @@ export class CategoryService {
     await this.#storageService.set(this.#storageKey, updatedCategories);
   }
 
-  async deleteCategory(categoryToDelete: Category) {
+  async deleteCategory(categoryId: string) {
     const updatedCategories = this.categories().filter(
-      (category) => category.id !== categoryToDelete.id,
+      (category) => category.id !== categoryId,
     );
 
     this.categories.set(updatedCategories);

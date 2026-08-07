@@ -1,0 +1,1 @@
+export * from "./category-managment-modal.component";

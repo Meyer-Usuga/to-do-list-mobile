@@ -58,6 +58,7 @@ export class TaskFormModalComponent {
     description: ['', [Validators.maxLength(50)]],
     completed: [false],
     categoryId: [''],
+    categoryColor: [''],
     createdAt: [new Date()],
     updatedAt: [new Date()],
   });
@@ -74,6 +75,7 @@ export class TaskFormModalComponent {
           description: task.description,
           completed: task.completed,
           categoryId: task.categoryId,
+          categoryColor: task.categoryColor,
           createdAt: task.createdAt,
           updatedAt: task.updatedAt,
         });

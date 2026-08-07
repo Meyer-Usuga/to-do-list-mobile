@@ -4,6 +4,7 @@ export interface TaskItemViewModel {
   description?: string;
   completed: boolean;
   categoryId: string;
+  categoryColor?: string;
   createdAt: Date;
   updatedAt: Date;
 }
