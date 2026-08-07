@@ -12,7 +12,7 @@ import { TaskItemComponent } from '../task-item';
 })
 export class TaskListComponent {
   readonly tasks = input.required<TaskItemViewModel[]>();
-  readonly toggle = output<TaskItemViewModel>();
+  readonly toggleStatus = output<TaskItemViewModel>();
   readonly edit = output<TaskItemViewModel>();
   readonly delete = output<TaskItemViewModel>();
 }
