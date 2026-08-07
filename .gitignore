@@ -23,6 +23,11 @@ log.txt
 /platforms
 /plugins
 
+# Capacitor native platforms (generated - run `npx cap add android/ios` to recreate)
+/android
+/ios
+
+
 # Compiled output
 /dist
 /tmp
