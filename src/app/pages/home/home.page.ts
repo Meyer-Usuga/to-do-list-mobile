@@ -18,6 +18,7 @@ import {
   IonFabButton,
   ModalController,
   AlertController,
+  IonSearchbar,
 } from '@ionic/angular/standalone';
 import {
   CategoryService,
@@ -26,7 +27,6 @@ import {
   TaskService,
 } from '@shared/';
 import { add, pricetags } from 'ionicons/icons';
-import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-home',
@@ -43,10 +43,10 @@ import { DatePipe } from '@angular/common';
     IonIcon,
     IonFab,
     IonFabButton,
+    IonSearchbar,
     TaskListComponent,
     CategoryFilterComponent,
     TaskFormModalComponent,
-    DatePipe,
   ],
 })
 export class HomePage {
@@ -59,7 +59,6 @@ export class HomePage {
   readonly categories = this.#categoryService.categories;
   readonly showCategoryManagment =
     this.#featureFlagService.showCategoryManagment;
-  readonly today = new Date();
 
   constructor() {
     addIcons({
@@ -68,13 +67,16 @@ export class HomePage {
     });
   }
 
-  readonly selectedCategoryId = signal('all');
+  readonly searchTask = signal<string>('');
+  readonly selectedCategoryId = signal<string>('all');
 
-  readonly tasksSelected = computed(() => {
+  readonly tasksSelected = computed<TaskItemViewModel[]>(() => {
     const tasks = this.tasks();
     const categories = this.categories();
+    const selectedCategoryId = this.selectedCategoryId();
+    const searchTask = this.searchTask().trim().toLowerCase();
 
-    const mappedTasks = tasks.map((task) => {
+    const mapTasksWithCategory = tasks.map((task: TaskItemViewModel) => {
       const category = categories.find((cat) => cat.id === task.categoryId);
       return {
         ...task,
@@ -82,14 +84,23 @@ export class HomePage {
       };
     });
 
-    if (this.selectedCategoryId() === 'all') {
-      return mappedTasks;
-    }
+    return mapTasksWithCategory.filter((task: TaskItemViewModel) => {
+      const matchesCategory =
+        selectedCategoryId === 'all' ||
+        task.categoryId === selectedCategoryId;
 
-    return mappedTasks.filter(
-      (task) => task.categoryId === this.selectedCategoryId(),
-    );
+      const matchesSearch =
+        !searchTask ||
+        task.title.toLowerCase().includes(searchTask) ||
+        task.description?.toLowerCase().includes(searchTask);
+
+      return matchesCategory && matchesSearch;
+    });
   });
+
+  onSearchTask(event: Event) {
+    this.searchTask.set((event.target as HTMLIonSearchbarElement).value || '');
+  }
 
   onSelectedCategory(categoryId: string) {
     this.selectedCategoryId.set(categoryId);

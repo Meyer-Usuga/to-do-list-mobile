@@ -2,7 +2,6 @@
   <ion-toolbar>
     <ion-title>
       Lista de tareas
-      <div class="home-subtitle">Hoy, {{ today | date: 'dd/MM/yyyy' }}</div>
     </ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="openCategoryManagmentModal()">
@@ -14,12 +13,18 @@
 
 <ion-content [fullscreen]="true">
   @if(showCategoryManagment()) {
-    <app-category-filter
+  <app-category-filter
     [categories]="categories()"
     [selectedCategoryId]="selectedCategoryId()"
     (selected)="onSelectedCategory($event)"
   />
   }
+
+  <ion-searchbar
+    placeholder="Buscar tareas"
+    [value]="searchTask()"
+    (ionInput)="onSearchTask($event)"
+  />
 
   @if(tasksSelected().length > 0) {
   <app-task-list
@@ -29,9 +34,7 @@
     (toggleStatus)="onToggleTask($event)"
   />
   } @else {
-    <div class="no-tasks">
-      No tienes ninguna tarea.
-    </div>
+  <div class="no-tasks">No tienes ninguna tarea.</div>
   }
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
