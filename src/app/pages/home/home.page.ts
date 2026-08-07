@@ -14,12 +14,11 @@ import {
   IonButton,
   IonIcon,
   IonButtons,
-  IonNote,
   IonFab,
   IonFabButton,
   ModalController,
 } from '@ionic/angular/standalone';
-import { CategoryService, TaskItemViewModel, TaskService } from '@shared/';
+import { CategoryService, FeatureFlagService, TaskItemViewModel, TaskService } from '@shared/';
 import { add, pricetags } from 'ionicons/icons';
 
 @Component({
@@ -45,9 +44,11 @@ import { add, pricetags } from 'ionicons/icons';
 export class HomePage {
   readonly #taskService = inject(TaskService);
   readonly #categoryService = inject(CategoryService);
+  readonly #featureFlagService = inject(FeatureFlagService);
   readonly #modalController = inject(ModalController);
   readonly tasks = this.#taskService.tasks;
   readonly categories = this.#categoryService.categories;
+  readonly showCategoryManagment = this.#featureFlagService.showCategoryManagment;
 
   constructor() {
     addIcons({

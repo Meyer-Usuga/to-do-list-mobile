@@ -10,11 +10,13 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <app-category-filter
+  @if(showCategoryManagment()) {
+    <app-category-filter
     [categories]="categories()"
     [selectedCategoryId]="selectedCategoryId()"
     (selected)="onSelectedCategory($event)"
   />
+  }
 
   @if(tasksSelected().length > 0) {
   <app-task-list

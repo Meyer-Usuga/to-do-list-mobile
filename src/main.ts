@@ -14,6 +14,9 @@ import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
 import { storageConfig } from './storage-config';
 import { importProvidersFrom } from '@angular/core';
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { provideRemoteConfig, getRemoteConfig } from '@angular/fire/remote-config';
+import { environment } from './environments/environment';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -21,5 +24,8 @@ bootstrapApplication(AppComponent, {
     importProvidersFrom(IonicStorageModule.forRoot(storageConfig)),
     provideIonicAngular({ useSetInputAPI: true }),
     provideRouter(routes, withPreloading(PreloadAllModules)),
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+    provideRemoteConfig(() => getRemoteConfig()),
+    
   ],
 });

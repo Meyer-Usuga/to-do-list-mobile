@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
-import { StorageService } from './shared';
+import { FeatureFlagService, StorageService } from './shared';
 
 @Component({
   selector: 'app-root',
@@ -9,8 +9,10 @@ import { StorageService } from './shared';
 })
 export class AppComponent {
   readonly #storageService = inject(StorageService);
+  readonly #featureFlagService = inject(FeatureFlagService);
 
   constructor() {
     this.#storageService.init();
+    this.#featureFlagService.init();
   }
 }
