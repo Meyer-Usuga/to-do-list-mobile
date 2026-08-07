@@ -11,7 +11,7 @@
 <ion-content class="ion-padding">
   <form [formGroup]="form" (ngSubmit)="saveForm()" class="task-form">
   <ion-input
-    fill="solid"
+    fill="outline"
     formControlName="title"
     label="Título"
     labelPlacement="stacked"
@@ -20,7 +20,7 @@
   </ion-input>
 
   <ion-input
-    fill="solid"
+    fill="outline"
     formControlName="description"
     label="Descripción"
     labelPlacement="stacked"
@@ -29,7 +29,7 @@
   </ion-input>
 
   <ion-select
-    fill="solid"
+    fill="outline"
     formControlName="categoryId"
     label-placement="stacked"
     interface="popover"
@@ -43,6 +43,6 @@
     }
   </ion-select>
 
-  <ion-button expand="block" (click)="saveForm()"> Guardar </ion-button>
+  <ion-button (click)="saveForm()" class="task-create-button"> Guardar </ion-button>
   </form>
 </ion-content>

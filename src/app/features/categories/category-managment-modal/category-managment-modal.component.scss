@@ -1,3 +1,51 @@
-.category-managment{
+.category-managment {
   padding: 1rem;
+}
+
+.task-card {
+  margin: 12px 0;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.15);
+}
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+
+  h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+  }
+}
+
+ion-list {
+  background: transparent;
+  --background: transparent;
+}
+
+.task-category {
+  width: 4px;
+  min-width: 4px;
+  height: 30px;
+  border-radius: 8px;
+}
+
+.task-actions {
+  display: flex;
+}
+
+.category-create-button {
+  width: 100%;  
+  max-width: 200px;
+  margin: 16px auto;
+  --border-radius: 24px;
 }

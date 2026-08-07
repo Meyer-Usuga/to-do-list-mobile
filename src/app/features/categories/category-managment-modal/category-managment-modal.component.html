@@ -11,37 +11,44 @@
 <ion-content class="ion-padding">
   <ion-list>
     @for (category of categories(); track category.id) {
-      <ion-item>
-        <div class="category-color" [style.background]="category.color"></div>
+      <ion-card class="task-card">
+        <ion-card-content>
+          <div class="task-header">
+            <div class="task-info">
+              <div
+                class="task-category"
+                [style.background]="category.color || 'var(--ion-color-medium)'"
+              ></div>
+              <div>
+                <h2>
+                  {{ category.name }}
+                </h2>
+              </div>
+            </div>
 
-        <ion-label>
-          {{ category.name }}
-        </ion-label>
+            <div class="task-actions">
+              <ion-button fill="clear" (click)="openEditCategory(category)">
+                <ion-icon name="create-outline"></ion-icon>
+              </ion-button>
 
-        <ion-button
-          fill="clear"
-          slot="end"
-          (click)="openEditCategory(category)"
-        >
-          <ion-icon name="create-outline"></ion-icon>
-        </ion-button>
-
-        <ion-button
-          fill="clear"
-          color="danger"
-          slot="end"
-          (click)="deleteCategory(category.id)"
-        >
-          <ion-icon name="trash-outline"></ion-icon>
-        </ion-button>
-      </ion-item>
+              <ion-button
+                fill="clear"
+                color="danger"
+                (click)="deleteCategory(category.id)"
+              >
+                <ion-icon name="trash-outline"></ion-icon>
+              </ion-button>
+            </div>
+          </div>
+        </ion-card-content>
+      </ion-card>
     }
   </ion-list>
 
   <ion-button
-    expand="block"
-    class="ion-margin-top"
+    class="category-create-button"
     (click)="openCreateCategory()"
+    expand="block"
   >
     <ion-icon slot="start" name="add-outline"> </ion-icon>
 

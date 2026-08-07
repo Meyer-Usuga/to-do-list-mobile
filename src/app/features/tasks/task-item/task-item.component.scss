@@ -1,12 +1,13 @@
 .task-card {
   margin: 12px;
   border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.15);
 }
 
 .task-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
 }
 
 .task-info {
@@ -17,9 +18,9 @@
 }
 
 .task-category {
-  width: 8px;
-  min-width: 8px;
-  height: 48px;
+  width: 4px;
+  min-width: 4px;
+  height: 30px;
   border-radius: 8px;
 }
 

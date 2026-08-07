@@ -13,7 +13,7 @@
 <ion-content class="ion-padding">
   <form [formGroup]="form" (ngSubmit)="saveForm()" class="category-form">
     <ion-input
-      fill="solid"
+      fill="outline"
       formControlName="name"
       label="Nombre"
       labelPlacement="stacked"
@@ -21,7 +21,7 @@
     >
     </ion-input>
 
-    <ion-accordion-group>
+    <ion-accordion-group value="colors">
       <ion-accordion value="colors">
         <ion-item slot="header">
           <ion-label>Color</ion-label>
@@ -50,6 +50,12 @@
       </ion-accordion>
     </ion-accordion-group>
 
-    <ion-button expand="block" (click)="saveForm()"> Guardar </ion-button>
+    <ion-button
+      class="category-create-button"
+      expand="block"
+      (click)="saveForm()"
+    >
+      Guardar
+    </ion-button>
   </form>
 </ion-content>

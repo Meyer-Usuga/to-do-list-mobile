@@ -1,6 +1,9 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title> To-do list </ion-title>
+    <ion-title>
+      Lista de tareas
+      <div class="home-subtitle">Hoy, {{ today | date: 'dd/MM/yyyy' }}</div>
+    </ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="openCategoryManagmentModal()">
         <ion-icon name="pricetags-outline"></ion-icon>

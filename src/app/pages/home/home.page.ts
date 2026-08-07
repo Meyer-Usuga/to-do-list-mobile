@@ -17,9 +17,16 @@ import {
   IonFab,
   IonFabButton,
   ModalController,
+  AlertController,
 } from '@ionic/angular/standalone';
-import { CategoryService, FeatureFlagService, TaskItemViewModel, TaskService } from '@shared/';
+import {
+  CategoryService,
+  FeatureFlagService,
+  TaskItemViewModel,
+  TaskService,
+} from '@shared/';
 import { add, pricetags } from 'ionicons/icons';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-home',
@@ -39,6 +46,7 @@ import { add, pricetags } from 'ionicons/icons';
     TaskListComponent,
     CategoryFilterComponent,
     TaskFormModalComponent,
+    DatePipe,
   ],
 })
 export class HomePage {
@@ -46,9 +54,12 @@ export class HomePage {
   readonly #categoryService = inject(CategoryService);
   readonly #featureFlagService = inject(FeatureFlagService);
   readonly #modalController = inject(ModalController);
+  readonly #alertController = inject(AlertController);
   readonly tasks = this.#taskService.tasks;
   readonly categories = this.#categoryService.categories;
-  readonly showCategoryManagment = this.#featureFlagService.showCategoryManagment;
+  readonly showCategoryManagment =
+    this.#featureFlagService.showCategoryManagment;
+  readonly today = new Date();
 
   constructor() {
     addIcons({
@@ -88,12 +99,12 @@ export class HomePage {
     this.openEditTaskForm(task);
   }
 
-  onDeleteTask(task: TaskItemViewModel) {
-    this.#taskService.deleteTask(task.id);
-  }
-
   onToggleTask(task: TaskItemViewModel) {
     this.#taskService.toggleTask(task.id);
+  }
+
+  onDeleteTask(task: TaskItemViewModel) {
+    this.openAlertDelete(task.id);
   }
 
   async openEditTaskForm(task: TaskItemViewModel) {
@@ -123,5 +134,25 @@ export class HomePage {
     });
 
     await modal.present();
+  }
+
+  async openAlertDelete(taskId: string){
+    const alert = await this.#alertController.create({
+      header: "Eliminar tarea",
+      message: "¿Estás seguro de que quieres eliminar esta tarea?",
+      buttons: [
+        {
+          text: "Cancelar",
+          role: "cancel",
+        },
+        {
+          text: "Eliminar",
+          handler: async () => {
+            await this.#taskService.deleteTask(taskId);
+          },
+        },
+      ],
+    });
+    await alert.present();
   }
 }
