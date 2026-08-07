@@ -12,12 +12,13 @@
 
 <ion-content class="ion-padding">
   <form [formGroup]="form" (ngSubmit)="saveForm()" class="category-form">
-    <ion-input
+     <ion-input
       fill="outline"
       formControlName="name"
       label="Nombre"
       labelPlacement="stacked"
       placeholder="Escribe el título de la tarea"
+      class="custom-form-input"
     >
     </ion-input>
 
@@ -51,7 +52,7 @@
     </ion-accordion-group>
 
     <ion-button
-      class="category-create-button"
+      class="custom-primary-button"
       expand="block"
       (click)="saveForm()"
     >

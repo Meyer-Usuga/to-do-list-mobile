@@ -16,6 +16,7 @@
     label="Título"
     labelPlacement="stacked"
     placeholder="Escribe el título de la tarea"
+    class="custom-form-input"
   >
   </ion-input>
 
@@ -25,6 +26,7 @@
     label="Descripción"
     labelPlacement="stacked"
     placeholder="Escribe la descripción de la tarea"
+    class="custom-form-input"
   >
   </ion-input>
 
@@ -34,6 +36,7 @@
     label-placement="stacked"
     interface="popover"
     placeholder="Selecciona una categoría"
+    class="custom-form-input"
   >
     <ion-select-option value="">Sin categoría</ion-select-option>
     @for(category of categories(); track category.id) {
@@ -43,6 +46,6 @@
     }
   </ion-select>
 
-  <ion-button (click)="saveForm()" class="task-create-button"> Guardar </ion-button>
+  <ion-button (click)="saveForm()" class="custom-primary-button"> Guardar </ion-button>
   </form>
 </ion-content>
