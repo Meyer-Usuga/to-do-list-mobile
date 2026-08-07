@@ -1,11 +1,9 @@
 <ion-item [class.completed]="task().completed === true">
-  @if (task().categoryColor) {
-    <div
-      slot="start"
-      class="task-item-indicator"
-      [style.background]="task().categoryColor"
-    ></div>
-  }
+  <div
+    slot="start"
+    class="task-item-indicator"
+    [style.background]="task().categoryColor ? task().categoryColor : 'gray'"
+  ></div>
 
   <ion-checkbox
     [checked]="task().completed === true"

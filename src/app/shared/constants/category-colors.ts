@@ -32,10 +32,6 @@ export const CATEGORY_COLORS = [
     value: '#e91e63',
   },
   {
-    name: 'Blue Grey',
-    value: '#607d8b',
-  },
-  {
     name: 'Brown',
     value: '#795548',
   },
@@ -66,9 +62,5 @@ export const CATEGORY_COLORS = [
   {
     name: 'Light Brown',
     value: '#8d6e63',
-  },
-  {
-    name: 'Grey',
-    value: '#bdbdbd',
   },
 ];
