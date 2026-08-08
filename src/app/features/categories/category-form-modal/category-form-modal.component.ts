@@ -57,7 +57,7 @@ export class CategoryFormModalComponent {
 
   readonly form = this.#formBuilder.group({
     id: [crypto.randomUUID() as string],
-    name: ['', [Validators.required, Validators.minLength(5)]],
+    name: ['', [Validators.required]],
     color: ['', [Validators.maxLength(50)]],
   });
 

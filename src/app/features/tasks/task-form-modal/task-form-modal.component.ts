@@ -54,7 +54,7 @@ export class TaskFormModalComponent {
 
   readonly form = this.#formBuilder.group({
     id: [crypto.randomUUID() as string],
-    title: ['', [Validators.required, Validators.minLength(5)]],
+    title: ['', [Validators.required]],
     description: ['', [Validators.maxLength(50)]],
     completed: [false],
     categoryId: [''],
